@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010, Jean-David Gadina <macmade@eosgarden.com>
+ * Copyright (c) 2010, Jean-David Gadina - www.xs-labs.com
  * Distributed under the Boost Software License, Version 1.0.
  * 
  * Boost Software License - Version 1.0 - August 17th, 2003
@@ -75,14 +75,14 @@
         _pid      = ( pid   != NULL ) ? ( NSInteger )atoi( pid )         : 0;
         _uid      = ( uid   != NULL ) ? ( NSInteger )atoi( uid )         : 0;
         _gid      = ( gid   != NULL ) ? ( NSInteger )atoi( gid )         : 0;
-        _level    = ( level != NULL ) ? ( ASLMessageLevel )atoi( level ) : 0;
+        _level    = ( level != NULL ) ? ( unsigned int )atoi( level ) : 0;
         
         _host     = ( host     != NULL ) ? [ NSString stringWithCString: host     encoding: NSUTF8StringEncoding ] : nil;
         _sender   = ( sender   != NULL ) ? [ NSString stringWithCString: sender   encoding: NSUTF8StringEncoding ] : nil;
         _facility = ( facility != NULL ) ? [ NSString stringWithCString: facility encoding: NSUTF8StringEncoding ] : nil;
         _message  = ( msg      != NULL ) ? [ NSString stringWithCString: msg      encoding: NSUTF8StringEncoding ] : nil;
         
-        _time     = [ NSDate dateWithTimeIntervalSince1970: ( NSTimeInterval )atoi( time ) ];
+        _time     = [ NSDate dateWithTimeIntervalSince1970: atoi( time ) ];
         
         [ _host     retain ];
         [ _sender   retain ];

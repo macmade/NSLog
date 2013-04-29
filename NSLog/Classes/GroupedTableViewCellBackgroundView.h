@@ -29,10 +29,34 @@
 
 /* $Id$ */
 
-#import "DetailViewController.h"
+typedef enum 
+{
+    GroupedTableViewCellBackgroundViewTypeTop    = 0x00,
+    GroupedTableViewCellBackgroundViewTypeMiddle = 0x01,
+    GroupedTableViewCellBackgroundViewTypeBottom = 0x02,
+    GroupedTableViewCellBackgroundViewTypeSingle = 0x03
+}
+GroupedTableViewCellBackgroundViewType;
 
-@interface DetailViewController( UITableViewDataSource ) < UITableViewDataSource >
+@interface GroupedTableViewCellBackgroundView: UIView
+{
+@protected
+    
+    UIColor                              * _borderColor;
+    UIColor                              * _fillColor;
+    CGFloat                                _borderWidth;
+    CGFloat                                _borderRadius;
+    GroupedTableViewCellBackgroundViewType _backgroundViewType;
+    
+@private
+    
+    id _GroupedTableViewCellBackgroundView_Reserved[ 5 ] __attribute__( ( unused ) );
+}
 
-
+@property( atomic, retain, readwrite ) UIColor                              * borderColor;
+@property( atomic, retain, readwrite ) UIColor                              * fillColor;
+@property( atomic, assign, readwrite ) CGFloat                                borderWidth;
+@property( atomic, assign, readwrite ) CGFloat                                borderRadius;
+@property( atomic, assign, readwrite ) GroupedTableViewCellBackgroundViewType backgroundViewType;
 
 @end

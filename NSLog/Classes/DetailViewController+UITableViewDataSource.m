@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010, Jean-David Gadina <macmade@eosgarden.com>
+ * Copyright (c) 2010, Jean-David Gadina - www.xs-labs.com
  * Distributed under the Boost Software License, Version 1.0.
  * 
  * Boost Software License - Version 1.0 - August 17th, 2003
@@ -30,6 +30,8 @@
 /* $Id$ */
 
 #import "DetailViewController+UITableViewDataSource.h"
+#import "ASLMessage.h"
+#import "GroupedTableViewCellBackgroundView.h"
 
 @implementation DetailViewController( UITableViewDataSource )
 
@@ -37,7 +39,7 @@
 {
     ( void )tableView;
     
-    return 1;
+    return 2;
 }
 
 - ( NSInteger )tableView: ( UITableView * )tableView numberOfRowsInSection: ( NSInteger )section
@@ -45,13 +47,150 @@
     ( void )tableView;
     ( void )section;
     
+    if( section == 0 )
+    {
+        return 1;
+    }
+    else
+    {
+        return 8;
+    }
+    
     return 0;
 }
 
 - ( UITableViewCell * )tableView: ( UITableView * )tableView cellForRowAtIndexPath: ( NSIndexPath * )indexPath
 {
+    GroupedTableViewCellBackgroundView * background;
+    UITableViewCell                    * cell;
+    
     ( void )tableView;
     ( void )indexPath;
+    
+    cell = nil;
+    
+    if( [ indexPath section ] == 0 )
+    {
+        cell                           = [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: nil ];
+        cell.textLabel.text            = _message.message;
+        cell.textLabel.font            = [ UIFont boldSystemFontOfSize: [ UIFont smallSystemFontSize ] ];
+        cell.textLabel.textColor       = [ UIColor darkGrayColor ];
+        cell.textLabel.numberOfLines   = INT_MAX;
+        cell.textLabel.lineBreakMode   = UILineBreakModeWordWrap;
+    }
+    else
+    {
+        cell                                 = [ [ UITableViewCell alloc ] initWithStyle: UITableViewCellStyleValue2 reuseIdentifier: nil ];
+        cell.textLabel.font                  = [ UIFont systemFontOfSize: [ UIFont smallSystemFontSize ] ];
+        cell.detailTextLabel.font            = [ UIFont systemFontOfSize: [ UIFont smallSystemFontSize ] ];
+        cell.textLabel.textColor             = [ UIColor colorWithHue: ( CGFloat )0.575 saturation: ( CGFloat )0.5 brightness: ( CGFloat )0.75 alpha: ( CGFloat )1 ];
+        cell.detailTextLabel.textColor       = [ UIColor darkGrayColor ];
+        cell.textLabel.backgroundColor       = [ UIColor clearColor ];
+        cell.detailTextLabel.backgroundColor = [ UIColor clearColor ];
+        background                           = [ [ GroupedTableViewCellBackgroundView alloc ] initWithFrame: CGRectZero ];
+        
+        if( [ indexPath row ] % 2 )
+        {
+            background.fillColor = [ UIColor colorWithPatternImage: [ UIImage imageNamed: @"cell-background-alternate.png" ] ];
+        }
+        else
+        {
+            background.fillColor = [ UIColor colorWithPatternImage: [ UIImage imageNamed: @"cell-background-normal.png" ] ];
+        }
+        
+        switch( [ indexPath row ] )
+        {
+            case 0:
+                
+                background.backgroundViewType = GroupedTableViewCellBackgroundViewTypeTop;
+                break;
+                
+            case 7:
+                
+                background.backgroundViewType = GroupedTableViewCellBackgroundViewTypeBottom;
+                break;
+                
+            default:
+                
+                background.backgroundViewType = GroupedTableViewCellBackgroundViewTypeMiddle;
+                break;
+        }
+        
+        cell.backgroundView = background;
+        
+        [ background release ];
+        
+        switch( [ indexPath row ] )
+        {
+            case 0:
+                
+                cell.textLabel.text       = NSLocalizedString( @"DetailViewSender", nil );
+                cell.detailTextLabel.text = _message.sender;;
+                break;
+                
+            case 1:
+                
+                cell.textLabel.text       = NSLocalizedString( @"DetailViewLevel", nil );
+                cell.detailTextLabel.text = _message.sender;
+                break;
+                
+            case 2:
+                
+                cell.textLabel.text       = NSLocalizedString( @"DetailViewFacility", nil );
+                cell.detailTextLabel.text = _message.facility;
+                break;
+                
+            case 3:
+                
+                cell.textLabel.text       = NSLocalizedString( @"DetailViewHost", nil );
+                cell.detailTextLabel.text = _message.host;
+                break;
+                
+            case 4:
+                
+                cell.textLabel.text       = NSLocalizedString( @"DetailViewTime", nil );
+                cell.detailTextLabel.text = _message.sender;
+                break;
+                
+            case 5:
+                
+                cell.textLabel.text       = NSLocalizedString( @"DetailViewPID", nil );
+                cell.detailTextLabel.text = [ NSString stringWithFormat: @"%u", _message.pid ];
+                break;
+                
+            case 6:
+                
+                cell.textLabel.text       = NSLocalizedString( @"DetailViewUID", nil );
+                cell.detailTextLabel.text = [ NSString stringWithFormat: @"%u", _message.uid ];
+                break;
+                
+            case 7:
+                
+                cell.textLabel.text       = NSLocalizedString( @"DetailViewGID", nil );
+                cell.detailTextLabel.text = [ NSString stringWithFormat: @"%u", _message.gid ];
+                break;
+                
+            default:
+                
+                break;
+        }
+    }
+    
+    return [ cell autorelease ];
+}
+
+- ( NSString * )tableView: ( UITableView * )tableView titleForHeaderInSection: ( NSInteger )section
+{
+    ( void )tableView;
+    
+    if( section == 0 )
+    {
+        return NSLocalizedString( @"Message", nil );
+    }
+    else
+    {
+        return NSLocalizedString( @"Details", nil );
+    }
     
     return nil;
 }

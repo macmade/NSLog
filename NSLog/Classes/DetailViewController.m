@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010, Jean-David Gadina <macmade@eosgarden.com>
+ * Copyright (c) 2010, Jean-David Gadina - www.xs-labs.com
  * Distributed under the Boost Software License, Version 1.0.
  * 
  * Boost Software License - Version 1.0 - August 17th, 2003
@@ -33,6 +33,7 @@
 #import "DetailViewController+Private.h"
 #import "DetailViewController+UITableViewDelegate.h"
 #import "DetailViewController+UITableViewDataSource.h"
+#import "ASLMessage.h"
 
 @implementation DetailViewController
 
@@ -52,6 +53,13 @@
     
     ( ( UITableView * )( self.view ) ).delegate   = self;
     ( ( UITableView * )( self.view ) ).dataSource = self;
+}
+
+- ( BOOL )shouldAutorotateToInterfaceOrientation: ( UIInterfaceOrientation )orientation
+{
+    ( void )orientation;
+    
+    return YES;
 }
 
 @end

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010, Jean-David Gadina <macmade@eosgarden.com>
+ * Copyright (c) 2010, Jean-David Gadina - www.xs-labs.com
  * Distributed under the Boost Software License, Version 1.0.
  * 
  * Boost Software License - Version 1.0 - August 17th, 2003
@@ -30,9 +30,28 @@
 /* $Id$ */
 
 #import "DetailViewController+UITableViewDelegate.h"
+#import "ASLMessage.h"
 
 @implementation DetailViewController( UITableViewDelegate )
 
-
+- ( CGFloat )tableView: ( UITableView * )tableView heightForRowAtIndexPath: ( NSIndexPath * )indexPath
+{
+    CGSize size;
+    
+    ( void )tableView;
+    
+    if( [ indexPath section ] == 0 )
+    {
+        size = [ _message.message
+                    sizeWithFont:       [ UIFont boldSystemFontOfSize: [ UIFont smallSystemFontSize ] ]
+                    constrainedToSize:  CGSizeMake( self.view.frame.size.width - ( CGFloat )40, CGFLOAT_MAX )
+                    lineBreakMode:      UILineBreakModeWordWrap
+               ];
+        
+        return size.height + ( CGFloat )30;
+    }
+    
+    return ( CGFloat )44;
+}
 
 @end
