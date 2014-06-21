@@ -1,0 +1,3 @@
+language: objective-c
+xcode_project: NSLog.xcodeproj
+xcode_scheme: NSLog

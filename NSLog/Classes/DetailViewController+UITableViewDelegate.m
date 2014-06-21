@@ -45,7 +45,7 @@
         size = [ _message.message
                     sizeWithFont:       [ UIFont boldSystemFontOfSize: [ UIFont smallSystemFontSize ] ]
                     constrainedToSize:  CGSizeMake( self.view.frame.size.width - ( CGFloat )40, CGFLOAT_MAX )
-                    lineBreakMode:      UILineBreakModeWordWrap
+                    lineBreakMode:      NSLineBreakByWordWrapping
                ];
         
         return size.height + ( CGFloat )30;

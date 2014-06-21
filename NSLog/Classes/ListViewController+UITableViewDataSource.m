@@ -35,9 +35,6 @@
 #import "ASLMessage.h"
 #import "MessageCell.h"
 
-static NSString * const __listCellID    = @"ListCellID";
-static NSString * const __settingCellID = @"SettingCellID";
-
 @implementation ListViewController( UITableViewDataSource )
 
 - ( NSInteger )numberOfSectionsInTableView: ( UITableView * )tableView
